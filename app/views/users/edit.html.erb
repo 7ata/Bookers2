@@ -1,20 +1,21 @@
 <div class="container">
-  <div class="row">
+ <div class="row">
     <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
-    <h2>User info</h2>
-    <form enctype="multipart/form-data" action="/users/34053" accept-charset="UTF-8" method="post"><input type="hidden" name="_method" value="patch" autocomplete="off"><input type="hidden" name="authenticity_token" value="1EnVaBZ4K13RHrOskqPrhMxIh_4FPpm2kDKIfg3VA3U6XAbfEdoS_9ZJKkL7hnsM8oJWiMB9Ij66iUUjBssnbw" autocomplete="off">
-  <%= form_with model: @user do |f| %>
-  <label for="inputName">Name</label><br>
-    <%= f.text_field :name, autofocus: true, id:"inputName", placeholder:"Name"%><br>
-  <label for="inputImage">Image</label><br>
-    <%= f.file_field :profile_image, placeholder: "Image", accept: "image/*" %><br>
-  <label>Introduction</label><br>
+     <h2>User info</h2>
+     <form enctype="multipart/form-data" action="/users/34053" accept-charset="UTF-8" method="post"><input type="hidden" name="_method" value="patch" autocomplete="off"><input type="hidden" name="authenticity_token" value="1EnVaBZ4K13RHrOskqPrhMxIh_4FPpm2kDKIfg3VA3U6XAbfEdoS_9ZJKkL7hnsM8oJWiMB9Ij66iUUjBssnbw" autocomplete="off">
+
+     <%= form_with model: @user do |f| %>
+     <label for="inputName">Name</label><br>
+      <%= f.text_field :name, autofocus: true, id:"inputName", placeholder:"Name"%><br>
+     <label for="inputImage">Image</label><br>
+      <%= f.file_field :profile_image, placeholder: "Image", accept: "image/*" %><br>
+     <label>Introduction</label><br>
       <%= f.text_area :caption %><br>
-    <%= f.submit "Update User" %>
-  <% end %>
+      <%= f.submit "Update User" , class:'btn btn-sm btn-success' %>
+     <% end %>
 
     </form>
     </div>
-  </div>
+ </div>
 
 </div>
