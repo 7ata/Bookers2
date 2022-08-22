@@ -6,27 +6,6 @@ class UsersController < ApplicationController
     @book = Book.new
   end
 
-  def create
-    @user = User.new(user_params)
-    # 3. データをデータベースに保存するためのsaveメソッド実行
-   if @user.save
-  		redirect_to users_path(@user.id), notice: "User was successfully created."
-   else
-      @users = User.all
-      render :users
-   end
-
-   @book = Book.new(book_params)
-   @book.user_id = current_user.id
-    # 3. データをデータベースに保存するためのsaveメソッド実行
-   if @book.save
-  		redirect_to book_path(@book.id), notice: "Book was successfully created."
-   else
-      @books = Book.all
-      render :index
-   end
-  end
-
   def show
     @user = User.find(params[:id])
     @book = Book.new
@@ -35,6 +14,9 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    if @user != current_user
+        redirect_to user_path(current_user)
+    end
   end
 
   def update

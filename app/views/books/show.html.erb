@@ -26,16 +26,16 @@
     </div>
    </div>
         <h2 class= "mt-3">New Book</h2>
-        <% if @book.errors.any? %>
-         <%= @book.errors.count %>errors prohibited this book from being saved:
+        <% if @newbook.errors.any? %>
+         <%= @newbook.errors.count %>errors prohibited this book from being saved:
         <ul>
-         <% @book.errors.full_messages.each do |message| %>
+         <% @newbook.errors.full_messages.each do |message| %>
          <li><%= message %></li>
          <% end %>
         </ul>
         <% end %>
 
-        <%= form_with model: @book do |f| %>
+        <%= form_with model: @newbook do |f| %>
          <div class="form-group">
           <%= f.label :Title %><br>
           <%= f.text_field :title %>
