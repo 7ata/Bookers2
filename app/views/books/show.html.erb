@@ -2,61 +2,77 @@
  <div class= "row">
   <div class="col-md-3">
 
-   <h2>User info</h2>
-   <%= image_tag current_user.get_profile_image("100","100")%>
-   <table>
-    <tbody>
-     <tr>
-      <th>name</th>
-    	 <th><%= @user.name %></th>
-     </tr>
-     <tr></tr>
-     <tr>
-      <th>Introdaction</th>
-      <th><%= @user.introduction %></th>
-     </tr>
-    </tbody>
-   </table>
+   <div>
+    <h2>User info</h2>
+    <%= image_tag @user.get_profile_image(100,100) %>
+    <table class="table">
+     <tbody>
+      <tr>
+       <th>name</th>
+       <th><%= @user.name %></th>
+      </tr>
+      <tr></tr>
+      <tr>
+       <th>Introdction</th>
+       <th><%= @user.introduction %></th>
+      </tr>
+     </tbody>
+    </table>
 
-   <div class="row">
-     <%= link_to "設定", edit_user_path(@user.id), class:"btn btn-outline-secondary btn-block edit_user_id" %>
+    <div class="row">
+      <%= link_to edit_user_path(@user.id), class:"btn btn-outline-secondary btn-block edit_user_id" do %>
+      <i class="fa-solid fa-user-gear"></i>
+      <% end %>
+    </div>
    </div>
+        <h2 class= "mt-3">New Book</h2>
+        <% if @book.errors.any? %>
+         <%= @book.errors.count %>errors prohibited this book from being saved:
+        <ul>
+         <% @book.errors.full_messages.each do |message| %>
+         <li><%= message %></li>
+         <% end %>
+        </ul>
+        <% end %>
 
-
-
-   <div class="col-md-8 offset-md-1">
-　      <h2>New Books</h2>
         <%= form_with model: @book do |f| %>
-         <div class="field">
+         <div class="form-group">
           <%= f.label :Title %><br>
           <%= f.text_field :title %>
          </div>
 
-         <div class="field">
+         <div class="form-group">
            <%= f.label :Opinion %><br>
            <%= f.text_area :body %>
          </div>
 
-         <div class="actions">
-           <%= f.submit 'Create Book' %><br>
+         <div class="form-group">
+           <%= f.submit 'Create Book', class:'btn btn-sm btn-success' %><br>
          </div>
         <% end %>
-    </div>
-　 </div>
+   </div>
 
-　 <div class="col-md-8 offset-md-1">
+ <div class="col-md-8 offset-md-1">
       <h2>Book detail</h2>
       <table class="table table-hover table-inverse">
        <tbody>
-         <% @books.each do |book| %>
          <tr>
-          <td><%= %></td>
-          <td><%= link_to book.title,book_path(book.id) %></td>
-          <td><%= book.body %></td>
-          <td><%= link_to "Edit", edit_book_path(@book.id),class: "btn btn-sm btn-danger" %></td>
-          <td><%= link_to "Destroy", book_path(book.id), class: "btn btn-sm btn-danger",method: :delete, data: { confirm: "Are you sure?" } %></td>
+          <td>
+           <%= image_tag @book.user.get_profile_image(100,100) %><br>
+           <%= link_to @user.name,user_path(@user.id) %>
+          </td>
+          <td><%= link_to @book.title,book_path(@book.id) %></td>
+          <td><%= @book.body %></td>
+
+         <% if @user == current_user %>
+          <td>
+           <%= link_to "Edit", edit_book_path(@book.id),class: "btn btn-sm btn-success" %>
+          </td>
+          <td>
+           <%= link_to "Destroy", book_path(@book.id), class: "btn btn-sm btn-danger", method: :delete, data: { confirm: "Are you sure?" } %>
+          </td>
+         <% end %>
          </tr>
-    <% end %>
        </tbody>
       </table>
    </div>

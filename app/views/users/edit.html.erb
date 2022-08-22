@@ -1,24 +1,36 @@
 <div class="container">
  <div class="row">
     <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
-     <h2>User info</h2>
-     <form enctype="multipart/form-data" action="/users/34053" accept-charset="UTF-8" method="post"><input type="hidden" name="_method" value="patch" autocomplete="off"><input type="hidden" name="authenticity_token" value="1EnVaBZ4K13RHrOskqPrhMxIh_4FPpm2kDKIfg3VA3U6XAbfEdoS_9ZJKkL7hnsM8oJWiMB9Ij66iUUjBssnbw" autocomplete="off">
 
+     <h2>User info</h2>
      <%= form_with model: @user do |f| %>
-     <div class="field">
+      <% if @user.errors.any? %>
+      <div class="id">
+       <h3>
+        <%= @user.errors.count %>errors prohibited this book from being saved:
+       </h3>
+      </div>
+       <ul>
+        <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+       </ul>
+       <% end %>
+
+     <div class="form-group">
        <%= f.label :name, "Name", class: "label" %><br>
-       <%= f.text_field :name, autofocus: true, id:"inputName", placeholder:"Name" %><br>
+       <%= f.text_field :name, autofocus: true, id:"inputName", placeholder:"Name" %>
      </div>
-     <div class="field">
+     <div class="form-group">
        <%= f.label :profile_image, "Image", class: "label" %><br>
-       <%= f.file_field :profile_image, placeholder: "Image", accept: "image/*" %><br>
+       <%= f.file_field :profile_image, placeholder: "Image", accept: "image/*" %>
      </div>
-     <label>Introduction</label><br>
-      <%= f.text_area :caption %><br>
+     <div class="form-group">
+       <%= f.label :introduction,"Introduction", class: "label" %><br>
+       <%= f.text_field :introduction, autofocus: true, id:"inputIntroduction", placeholder:"Introduction" %>
+     </div>
       <%= f.submit "Update User" , class:'btn btn-sm btn-success' %>
      <% end %>
-
-    </form>
     </div>
  </div>
 

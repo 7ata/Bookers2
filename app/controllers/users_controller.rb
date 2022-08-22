@@ -2,15 +2,15 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-    #@user = User.new
     @user = current_user
+    @book = Book.new
   end
 
   def create
     @user = User.new(user_params)
     # 3. データをデータベースに保存するためのsaveメソッド実行
    if @user.save
-  		redirect_to users_path(users.id), notice: "User was successfully created."
+  		redirect_to users_path(@user.id), notice: "User was successfully created."
    else
       @users = User.all
       render :users
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   		redirect_to book_path(@book.id), notice: "Book was successfully created."
    else
       @books = Book.all
-      render :books
+      render :index
    end
   end
 
@@ -57,6 +57,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :profile_image)
+    params.require(:user).permit(:name, :email, :password, :profile_image, :introduction)
   end
 end
